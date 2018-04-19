@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     async fetchData() {
-      const endpoint = `http://www.omdbapi.com/?apikey=90f4c086&s&i=${
+      const endpoint = `https://www.omdbapi.com/?apikey=90f4c086&s&i=${
         this.$route.params.id
       }`;
 

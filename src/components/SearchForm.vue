@@ -26,7 +26,7 @@ export default {
   methods: {
     async handleSubmit() {
       const { query } = this;
-      const endpoint = `http://www.omdbapi.com/?apikey=90f4c086&s=${query}&type=series`;
+      const endpoint = `https://www.omdbapi.com/?apikey=90f4c086&s=${query}&type=series`;
 
       const response = await axios.get(endpoint);
       const results = response.data.Search;
