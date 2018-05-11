@@ -1,11 +1,42 @@
 <template>
-  <v-container>
-    <h1>TeleVUEsion</h1>
-    <h2>Detail page for {{ $route.params.id }}</h2>
+  <v-container grid-list-md>
+    <div v-if="!show">
+      Loading..
+    </div>
+    <v-layout v-else row wrap>
+      <v-flex md9>
+        <v-layout row wrap>
+          <v-flex md6>
+            <h1>{{ show.Title }}</h1>
+          </v-flex>
+          <v-flex md6>
+            <h1>Rating: {{show.imdbRating}}</h1>
+          </v-flex>
+          <v-flex md12>
+            <div class="headline">
+              {{ show.Plot }}
+            </div>
+          </v-flex>
+          <v-flex md3 class="dates">
+            <p>Year: {{ show.Year }}</p>
+            <p>Released: {{ show.Released }}</p>
+            <p>Seasons: {{ show.totalSeasons }}</p>
+          </v-flex>
+        </v-layout>
 
-    <pre>{{JSON.stringify(data, null, 2)}}</pre>
+      </v-flex>
+      <v-flex md3>
+        <img :src="show.Poster" />
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
+
+<style>
+.dates p {
+  margin: 0;
+}
+</style>
 
 <script>
 import axios from "axios";
@@ -17,7 +48,7 @@ export default {
   },
   data() {
     return {
-      data: null
+      show: null
     };
   },
   methods: {
@@ -26,8 +57,8 @@ export default {
         this.$route.params.id
       }`;
 
-      const { data } = await axios.get(endpoint);
-      this.data = data;
+      const response = await axios.get(endpoint);
+      this.show = response.data;
     }
   }
 };
